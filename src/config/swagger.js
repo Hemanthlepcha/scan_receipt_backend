@@ -22,8 +22,8 @@ const options = {
         description: "Development server",
       },
       {
-        url: "https://api.receiptscan.bt",
-        description: "Production server",
+        url: "https://scan-receipt-backend.onrender.com",
+        description: "Development server",
       },
     ],
     tags: [
