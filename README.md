@@ -11,6 +11,7 @@ Automated receipt scanning and transaction management system for Bhutan's digita
 - 💾 Supabase database integration
 - 📊 Dashboard with flexible filtering (daily, weekly, monthly, custom)
 - 💰 Automatic transaction amount calculations
+- 📚 Interactive Swagger API Documentation
 
 ## Supported Banks
 
@@ -106,21 +107,43 @@ Automated receipt scanning and transaction management system for Bhutan's digita
    npm start
    ```
 
-## API Endpoints
+## API Documentation
+
+### 📚 **Interactive API Docs (Swagger UI)**
+
+Once the server is running, access the **interactive API documentation**:
+
+**🔗 http://localhost:3000/api-docs**
+
+Features:
+
+- ✅ **Try out all endpoints** directly from the browser
+- ✅ Test with authentication (JWT)
+- ✅ Upload files interactively
+- ✅ See request/response examples
+- ✅ Export OpenAPI spec for other tools
+
+You can also get the raw OpenAPI JSON at: `http://localhost:3000/api-docs.json`
+
+### API Endpoints
 
 ### Authentication
 
 - `POST /api/auth/signup` - Register new user
 - `POST /api/auth/login` - Login user
+- `GET /api/auth/me` - Get current user info
 
 ### Receipt Management
 
 - `POST /api/receipts/upload` - Upload and scan receipt
 - `POST /api/receipts/confirm` - Confirm and save transaction
+- `POST /api/receipts/upload-and-save` - Upload and auto-save
 
 ### Dashboard
 
 - `GET /api/dashboard/transactions` - Get transactions with filters
+
+For detailed documentation of each endpoint, visit the **Swagger UI** at `/api-docs`.
 
 ## Environment Variables
 
@@ -128,9 +151,28 @@ See `.env.example` for all required environment variables.
 
 ## Testing
 
+### 🎯 **Best Option: Swagger UI (Recommended)**
+
+The **easiest way** to test the API:
+
+1. Start the server: `npm run dev`
+2. Open browser: **http://localhost:3000/api-docs**
+3. Click "Authorize" button and enter your JWT token
+4. Try any endpoint directly from the browser!
+
+**Benefits:**
+
+- No additional tools needed
+- Interactive interface
+- Automatic request/response validation
+- File upload support built-in
+- Save authentication token across requests
+
+---
+
 ### Quick Test with HTML Tool
 
-The easiest way to test the API:
+Alternative simple testing:
 
 1. Start the server: `npm run dev`
 2. Open `test-upload.html` in your browser
@@ -147,9 +189,7 @@ curl -X POST http://localhost:3000/api/receipts/upload \
 
 ### Test with Postman
 
-Import the endpoints from `postman_collection.json` or see detailed instructions in `SETUP_GUIDE.md`.
-
-For complete testing documentation, see [SETUP_GUIDE.md](SETUP_GUIDE.md#step-6-test-the-api).
+Import the endpoints from `postman_collection.json` or the Swagger JSON from `/api-docs.json`.
 
 ## License
 
