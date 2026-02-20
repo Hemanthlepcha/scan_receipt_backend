@@ -16,10 +16,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Swagger API Documentation
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
-  customCss: '.swagger-ui .topbar { display: none }',
-  customSiteTitle: "Receipt Scanner API Docs",
-}));
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, {
+    customSiteTitle: "Receipt Scanner API Docs",
+    customCss: ".swagger-ui .topbar { display: none }",
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  }),
+);
+
+// Swagger JSON endpoint (for importing into other tools)
+app.get("/api-docs.json", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(swaggerSpec);
+});
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -29,6 +42,11 @@ app.use("/api/dashboard", dashboardRoutes);
 // Health check
 app.get("/health", (req, res) => {
   res.json({ status: "ok", message: "Receipt Scanner API is running" });
+});
+
+// Root endpoint - redirect to API docs
+app.get("/", (req, res) => {
+  res.redirect("/api-docs");
 });
 
 // Error handling middleware
@@ -46,6 +64,7 @@ app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
   console.log(`📡 Environment: ${process.env.NODE_ENV || "development"}`);
   console.log(`📚 API Documentation: http://localhost:${PORT}/api-docs`);
+  console.log(`📄 Swagger JSON: http://localhost:${PORT}/api-docs.json`);
 });
 
 export default app;
