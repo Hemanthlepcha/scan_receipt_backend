@@ -40,6 +40,9 @@ const uploadReceipt = async (req, res) => {
     // Verify the extracted data quality
     const verification = verifyReceiptData(extractionResult.data);
 
+    // Get mobile number from request body (optional)
+    const mobileNumber = req.body.mobile_number || null;
+
     res.json({
       success: true,
       message: "Receipt scanned successfully",
@@ -48,6 +51,7 @@ const uploadReceipt = async (req, res) => {
         verification: verification,
         raw_response: extractionResult.raw_response,
         receipt_image_url: uploadResult.url,
+        mobile_number: mobileNumber,
       },
     });
   } catch (error) {

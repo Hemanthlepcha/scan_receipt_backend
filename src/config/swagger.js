@@ -429,6 +429,12 @@ const options = {
                       description:
                         "Receipt image file (JPEG, PNG, JPG - max 5MB)",
                     },
+                    mobile_number: {
+                      type: "string",
+                      description:
+                        "Customer mobile number (optional - not extracted from receipt)",
+                      example: "17123456",
+                    },
                   },
                 },
               },
@@ -481,6 +487,11 @@ const options = {
                             format: "uri",
                             example:
                               "https://project.supabase.co/storage/v1/object/public/receipts/user-id/timestamp.jpg",
+                          },
+                          mobile_number: {
+                            type: "string",
+                            example: "17123456",
+                            description: "Customer mobile number if provided",
                           },
                           raw_response: {
                             type: "string",
